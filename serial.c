@@ -42,6 +42,11 @@ void uart_putstr(const char *str) {
     }
 }
 
-char uart_getchar(void);
+char uart_getchar(void) {
+    loop_until_bit_is_set(UCSR0A, RXC0); /* Wait until data exists. */
+    return UDR0;
+}
 
-void uart_echo(void);
+void uart_echo(void) {
+    uart_putchar(uart_getchar());
+}

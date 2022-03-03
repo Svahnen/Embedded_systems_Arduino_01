@@ -12,9 +12,8 @@ int main(void) {
     PORTB &= ~(1 << BLUE);  // Set PB1 in PORTB to 0 (low) since we need to connect to GND to turn on
     uart_init();
 
-    char *name = "Jonny Svahn\n";
+    // char *name = "Jonny Svahn\n";
     while (running) {
-        uart_putstr(name);
-        _delay_ms(1000);
+        uart_echo();
     }
 }
