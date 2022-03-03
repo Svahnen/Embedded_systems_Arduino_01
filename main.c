@@ -19,8 +19,8 @@ int main(void) {
         TCNT0 = 0x00;  // Clear the counter
         TIFR0 = 0x01;  // clear timer1 overflow flag
         timerOverflowCount++;
-        if (timerOverflowCount >= 100) {
-            PORTB ^= (1 << BLUE);  // Invert the state of BLUE
+        if (timerOverflowCount >= 31) {  // OverFlowCount = 500ms/16ms = 31,25 ≈ 31
+            PORTB ^= (1 << BLUE);        // Invert the state of BLUE
             timerOverflowCount = 0;
         }
     }
