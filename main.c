@@ -29,6 +29,7 @@ int main(void) {
 
         if (receivedChr == '\n') {
             for (size_t i = 0; i < messageLength; i++) {
+                // TODO: Output the whole message so i can start using it to look for commands
                 uart_putchar('t');
             }
             messageLength = 0;
