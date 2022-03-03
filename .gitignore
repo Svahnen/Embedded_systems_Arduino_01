@@ -54,3 +54,6 @@ dkms.conf
 # Arduino extra
 *.lss
 *.P
+
+# User test files
+*Test.c
