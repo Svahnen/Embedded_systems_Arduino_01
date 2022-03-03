@@ -16,7 +16,5 @@ int main(void) {
     while (running) {
         uart_putstr(name);
         _delay_ms(1000);
-        uart_putstr("test\n");
-        _delay_ms(1000);
     }
 }
