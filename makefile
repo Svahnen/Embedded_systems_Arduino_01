@@ -3,7 +3,8 @@ BIN = lab1# namn på output-binären
 # Lista på C-ﬁler ingående i binären
 SOURCES = \
 		  main.c \
-		  serial.c
+		  serial.c \
+		  toggleLED.c
 
 PORT = /dev/ttyACM0 # Arduinons serieport — kan vara ttyACM1, kolla dmesg!
 
