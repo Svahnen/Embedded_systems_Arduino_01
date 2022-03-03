@@ -27,7 +27,13 @@ void uart_init(void) {
 
 void uart_putchar(char chr) {
     loop_until_bit_is_set(UCSR0A, UDRE0); /* Wait until data register empty. */
-    UDR0 = chr;
+    if (chr == '\n') {
+        UDR0 = chr;
+        loop_until_bit_is_set(UCSR0A, UDRE0);
+        UDR0 = '\r';  // Add '\r' after '\n'
+    } else {
+        UDR0 = chr;
+    }
 }
 void uart_putstr(const char *str) {
     // UDRn = str;
