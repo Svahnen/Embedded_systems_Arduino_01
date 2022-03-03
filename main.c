@@ -25,5 +25,12 @@ int main(void) {
     while (running) {
         toggleLED(BLUE);
         _delay_ms(1000);
+        toggleLED(BLUE);
+        toggleLED(GREEN);
+        _delay_ms(1000);
+        toggleLED(GREEN);
+        toggleLED(RED);
+        _delay_ms(1000);
+        toggleLED(RED);
     }
 }
