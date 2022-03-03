@@ -13,7 +13,7 @@ int main(void) {
     TCNT0 = 0x00;  // Clear the counter
     TCCR0B = (1 << CS00) | (1 << CS02);
 
-    while (1) {
+    while (1) {                        // A modified version of this: https://exploreembedded.com/wiki/AVR_Timer_programming
         while ((TIFR0 & 0x01) == 0) {  // Monitor the TOV0 flag in the TIFR0 register to check if the timer has over-flowed
         }
         TCNT0 = 0x00;  // Clear the counter
