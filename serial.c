@@ -2,8 +2,8 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
-#define F_CPU 16000000UL
-#define BAUD 9600
+//#define F_CPU 16000000UL // May need this in the future in case the clock is different
+#define BAUD 38400
 #include <util/setbaud.h>
 
 void uart_init(void) {
@@ -18,8 +18,12 @@ void uart_init(void) {
     UCSR0A &= ~(_BV(U2X0));
 #endif
 
-    UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);  // 8-bit data
-    UCSR0B = _BV(RXEN0) | _BV(TXEN0);    /* Enable RX and TX */
+    UCSR0C &= ~(1 << 1);  // UCSZ00
+    UCSR0C |= (1 << 2);   // UCSZ01
+    UCSR0B |= (1 << 2);   // UCSZ02
+    // 8-bit data = 011
+
+    UCSR0B = _BV(RXEN0) | _BV(TXEN0); /* Enable RX and TX */
 }
 
 void uart_putchar(char chr) {
