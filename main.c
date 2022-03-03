@@ -15,6 +15,10 @@ int main(void) {
     DDRB |= (1 << GREEN);
     DDRB |= (1 << RED);
 
+    PORTB |= (1 << BLUE);  // Set PB1 in PORTB to initial 1 (high) so it is off
+    PORTB |= (1 << GREEN);
+    PORTB |= (1 << RED);
+
     uart_init();
 
     // char *name = "Jonny Svahn\n";
