@@ -2,7 +2,8 @@
     "files.associations": {
         "io.h": "c",
         "sfr_defs.h": "c",
-        "serial.h": "c"
+        "serial.h": "c",
+        "stdio.h": "c"
     },
     "C_Cpp.intelliSenseEngine": "Tag Parser"
 }

@@ -11,20 +11,12 @@ int main(void) {
     DDRB |= (1 << BLUE);    // Set PB1 (Pin9, blue LED on the shield) in DDRB (Port B Data Direction Register) to 1, this makes PB1 an output
     PORTB &= ~(1 << BLUE);  // Set PB1 in PORTB to 0 (low) since we need to connect to GND to turn on
     uart_init();
+
+    char *name = "Jonny Svahn\n";
     while (running) {
-        uart_putchar('t');
-        uart_putchar('e');
-        uart_putchar('s');
-        uart_putchar('t');
-        uart_putchar('1');
-        uart_putchar('\n');
+        uart_putstr(name);
         _delay_ms(1000);
-        uart_putchar('t');
-        uart_putchar('e');
-        uart_putchar('s');
-        uart_putchar('t');
-        uart_putchar('2');
-        uart_putchar('\r');
+        uart_putstr("test\n");
         _delay_ms(1000);
     }
 }

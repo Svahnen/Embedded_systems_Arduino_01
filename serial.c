@@ -4,6 +4,7 @@
 #include <util/delay.h>
 //#define F_CPU 16000000UL // May need this in the future in case the clock is different
 #define BAUD 38400
+#include <string.h>
 #include <util/setbaud.h>
 
 void uart_init(void) {
@@ -36,7 +37,9 @@ void uart_putchar(char chr) {
     }
 }
 void uart_putstr(const char *str) {
-    // UDRn = str;
+    for (size_t i = 0; i < strlen(str); i++) {
+        uart_putchar(str[i]);
+    }
 }
 
 char uart_getchar(void);
