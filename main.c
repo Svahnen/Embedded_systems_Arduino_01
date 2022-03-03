@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <stdbool.h>
+#include <string.h>
 #include <util/delay.h>
 
 #include "serial.h"
@@ -21,16 +22,17 @@ int main(void) {
 
     uart_init();
 
-    // char *name = "Jonny Svahn\n";
+    char *message[99];
+    int messageLength = 0;
     while (running) {
-        toggleLED(BLUE);
-        _delay_ms(1000);
-        toggleLED(BLUE);
-        toggleLED(GREEN);
-        _delay_ms(1000);
-        toggleLED(GREEN);
-        toggleLED(RED);
-        _delay_ms(1000);
-        toggleLED(RED);
+        char receivedChr = uart_getchar();
+
+        if (receivedChr == '\n') {
+            for (size_t i = 0; i < messageLength; i++) {
+                uart_putchar('t');
+            }
+            messageLength = 0;
+        }
+        messageLength++;
     }
 }
