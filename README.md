@@ -9,4 +9,4 @@ A RGB LED connected to PB1(b) PB2(g) and PB3(r) can be controlled by sending the
 "GREEN\r\n" Toggle green <br>
 "RED\r\n" Toggle red <br>
 
-This project is built in steps and those steps are saved as functioning bits in their own branch
+This project is built in steps and those steps are saved as functioning bits in their own branches
