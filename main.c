@@ -28,10 +28,16 @@ int main(void) {
         char receivedChr = uart_getchar();
         message[messageLength] = receivedChr;
         if (receivedChr == '\n') {
-            for (size_t i = 0; i < messageLength; i++) {
+            message[messageLength + 1] = '\0';
+            uart_putchar('?');
+            if (strcmp(message, "ON\r\n") == 0) {
+                uart_putchar('!');
+            }
+
+            /* for (size_t i = 0; i < messageLength; i++) {
                 // TODO: Output the whole message so i can start using it to look for commands
                 uart_putchar(message[i]);
-            }
+            } */
             messageLength = 0;
         }
         messageLength++;
