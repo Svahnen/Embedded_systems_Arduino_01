@@ -22,38 +22,18 @@ int main(void) {
 
     uart_init();
 
-    char chr = uart_getchar();
+    char message[99];
+    int messageLength = 0;
     while (running) {
-        chr = uart_getchar();
-        if (chr == 'O') {
-            chr = uart_getchar();
-            if (chr == 'N') {
-                chr = uart_getchar();
-                if (chr == '\r') {
-                    chr = uart_getchar();
-                    if (chr == '\n') {
-                        PORTB &= ~(1 << BLUE);
-                        uart_putchar('O');
-                        uart_putchar('N');
-                        uart_putchar('\n');
-                    }
-                }
-            } else if (chr == 'F') {
-                chr = uart_getchar();
-                if (chr == 'F') {
-                    chr = uart_getchar();
-                    if (chr == '\r') {
-                        chr = uart_getchar();
-                        if (chr == '\n') {
-                            PORTB |= (1 << BLUE);
-                            uart_putchar('O');
-                            uart_putchar('F');
-                            uart_putchar('F');
-                            uart_putchar('\n');
-                        }
-                    }
-                }
+        char receivedChr = uart_getchar();
+        message[messageLength] = receivedChr;
+        if (receivedChr == '\n') {
+            for (size_t i = 0; i < messageLength; i++) {
+                // TODO: Output the whole message so i can start using it to look for commands
+                uart_putchar(message[i]);
             }
+            messageLength = 0;
         }
+        messageLength++;
     }
 }
