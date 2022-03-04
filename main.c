@@ -27,19 +27,30 @@ int main(void) {
     while (running) {
         char receivedChr = uart_getchar();
         message[messageLength] = receivedChr;
+        messageLength++;
         if (receivedChr == '\n') {
-            message[messageLength + 1] = '\0';
-            uart_putchar('?');
-            if (strcmp(message, "ON\r\n") == 0) {
-                uart_putchar('!');
+            message[messageLength] = '\0';
+            if (strcmp(message, "BLUE\r\n") == 0) {
+                // Send "BLUE\r\n" to toggle color
+                toggleLED(BLUE);
+            } else if (strcmp(message, "GREEN\r\n") == 0) {
+                // Send "GREEN\r\n" to toggle color
+                toggleLED(GREEN);
+            } else if (strcmp(message, "RED\r\n") == 0) {
+                // Send "RED\r\n" to toggle color
+                toggleLED(RED);
+            } else if (strcmp(message, "ON\r\n") == 0) {
+                // Send "ON\r\n" to turn all colors on
+                PORTB &= ~(1 << BLUE);
+                PORTB &= ~(1 << GREEN);
+                PORTB &= ~(1 << RED);
+            } else if (strcmp(message, "OFF\r\n") == 0) {
+                // Send "OFF\r\n" to turn all colors off
+                PORTB |= (1 << BLUE);
+                PORTB |= (1 << GREEN);
+                PORTB |= (1 << RED);
             }
-
-            /* for (size_t i = 0; i < messageLength; i++) {
-                // TODO: Output the whole message so i can start using it to look for commands
-                uart_putchar(message[i]);
-            } */
             messageLength = 0;
         }
-        messageLength++;
     }
 }
