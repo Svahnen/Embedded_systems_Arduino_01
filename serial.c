@@ -1,10 +1,10 @@
 #include "serial.h"
 
 #include <avr/io.h>
-#include <util/delay.h>
-//#define F_CPU 16000000UL // May need this in the future in case the clock is different
-#define BAUD 38400
 #include <string.h>
+#include <util/delay.h>
+#define BAUD 38400
+#define FOSC 16000000
 #include <util/setbaud.h>
 
 void uart_init(void) {
@@ -20,8 +20,8 @@ void uart_init(void) {
 #endif
 
     // Register information found in the data sheet and here: https://appelsiini.net/2011/simple-usart-with-avr-libc/#registers
-    UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);        // 8-bit data = 011
-    UCSR0C |= (1 << USBS0);                    // USART Stop Bit Select. Set to select 1 stop bit. Unset to select 2 stop bits.
+    UCSR0C = _BV(UCSZ01) | _BV(UCSZ00);        // 8-bit data = 011 (read from the right) they are set by UCSZ00 UCSZ01 and UCSZ02 (in UCSR0B)
+    UCSR0C &= ~(1 << USBS0);                   // 0 = 1-bit, 1 = 2-bit
     UCSR0C &= ~((1 << UPM00) | (1 << UPM01));  // 00 = Parity mode none
     UCSR0B = _BV(RXEN0) | _BV(TXEN0);          /* Enable RX and TX */
 }
