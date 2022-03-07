@@ -9,30 +9,6 @@
 #include <util/setbaud.h>
 
 void uart_init(void) {
-    // Enable Transmitter:
-    UCSR0B |= _BV(TXEN0);
-    // Enable Receiver:
-    UCSR0B |= _BV(RXEN0);
-
-    // 8N1 Mode: (Controlled by UCSR0C register, see datasheet ch. 24.12.4 p. 249-250)
-    // 8-bit data
-    UCSR0C |= _BV(UCSZ01);
-    UCSR0C |= _BV(UCSZ00);
-    // No parity
-    UCSR0C &= ~_BV(UPM01) & ~_BV(UPM00);  // This works
-    // UCSR0C &= ~_BV(UPM01); // But can be done in steps too
-    // UCSR0C &= ~_BV(UPM00);
-    // 1 stop bit
-    UCSR0C &= ~_BV(USBS0);
-
-    // Set baudrate: (see datasheet ch. 24
-    uint16_t ubrrn = FOSC / (16 * BAUD) - 1;
-    // UBRR0H = ubrrn & OxFF00; // High bits of 16 bit number
-    // UBRR0L = ubrrn &0x00FF; // Low bits of 16 bit number
-    UBRR0 = ubrrn;
-}
-
-void uart_init_old(void) {
     // Baud Rate Register uses 2 bytes, H and L for all its settings, some unused bytes in H needs to be set to 0 for things to work
     UBRR0H = UBRRH_VALUE;  // Right shifts 8 times
     UBRR0L = UBRRL_VALUE;
